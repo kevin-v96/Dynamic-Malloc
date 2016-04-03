@@ -1,0 +1,26 @@
+<Team Name: S.W.A.T. Cats
+
+Member 1: Kevin Vegda
+201401014
+
+Member 2: Rudra Chandak
+201401129>
+
+Design
+We have used the standard header and footer boundary tag coalescing for both allocated and free blocks. The blocks are 8-byte aligned with header and footer of 4 bytes each. For keeping track of the free blocks, we have used the explicit free list. Also, for finding the free block we are using the pseudo first fit method. 
+
+We used the explicit free list so that we need to keep track of only the free blocks rathar than all the blocks in the heap. This reduces the time required for finding the required appropriate free block.
+
+We are implementing a pseudo first fit algorithm for finding the free block for allocation. Here, we are searching the free list for a limited number of times rather than searching the whole free list for the required appropriate block. This reduces the time for finding the free block.
+
+We have used macros for finding the next and free blocks in the free list. The previous block's address is present in the first 4 bytes of the payload of the free block and the next block's address in the next 4 bytes.
+We have used a macro CALC_ALIGN for calculating the required size to be allocated, given the 8-byte alignment.
+We are using the extend heap to extend the heap by only the block size which we need rather than allocating a whole chunk - This increases the space utilization.
+
+Workflow
+First thing we thought of was changing the implicit free list to explicit free list. For this, we ensured that the minimum free block size is a minimum of 16 bytes so we could use the first 4 bytes of the payload for storing the address of the previous free block and the next 4 bytes for the address of next block. We thought of implementing the segregated free list if explicit free list did not yield in much of an increase, but the explicit free list resulted in a very high thoroughput, thus making a segregated free list futile.
+
+Other Failed Attempts
+We tried other things for optimizing the code. We tried to remove the footer from allocated blocks and also attempted to implement a segregated free list but they all resulted into segmentation faults or payload overlaps.
+
+
